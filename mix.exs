@@ -11,7 +11,14 @@ defmodule Lab42Html.MixProject do
       elixir: "~> 1.9",
       elixir_cpath: elixir_cpath(Mix.env),
       package: package(),
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ],
       start_permanent: Mix.env() == :prod,
+      test_coverage: [tool: ExCoveralls],
       version: @version,
     ]
   end
