@@ -7,7 +7,7 @@ defmodule Lab42.Html.Table do
   Generates HTML Tables from list data.
   """
   
-  @dpc false
+  @doc false
   def gen(data, thead \\ true)
   def gen(data, true) do
     case _gen_thead(numbered(data), []) do
@@ -29,7 +29,7 @@ defmodule Lab42.Html.Table do
   defp _gen_row({lnb, cells}, {cols, messages}) when is_list(cells) do
     messages1 =
       if Enum.count(cells) != cols,
-        do: add_message(messages, "Column count does not correspond to previous cells", severity: :warning),
+        do: add_message(messages, "Column count does not correspond to previous cells", location: lnb, severity: :warning),
         else: messages
     result = Enum.map(cells, &_gen_td/1)
     {["<tr>\n", result, "</tr>\n"], {cols, messages1}}
@@ -61,7 +61,6 @@ defmodule Lab42.Html.Table do
     end
   end
   defp _gen_thead(data, messages) do
-    IO.inspect {9999, data}
     {"", [], 0, add_message(messages, "Data is not a list of lists", severity: :fatal)}
   end
 

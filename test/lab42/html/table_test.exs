@@ -23,12 +23,35 @@ defmodule Lab42.Html.TableTest do
 
   describe "some errors and warnings" do
     test "no data" do
-      data = []
-      html = ""
-      result = gen(data)
+      data     = []
+      html     = ""
+      result   = gen(data)
       messages = [{:error, "Empty Data cannot create a table", 0}]
 
       assert result == {:error, html, messages} 
+    end
+    test "head is not a list" do
+      data     = ~w{head}
+      html     = ""
+      result   = gen(data)
+      messages = [{:fatal, "Data is not a list of lists", 0}]
+
+      assert result == {:error, html, messages} 
+    end
+    test "or is empty" do
+      data     = [[]]
+      html     = "<table>\n<thead>\n<tr>\n</tr>\n</thead>\n<tbody>\n</tbody>\n</table>\n"
+      result   = gen(data)
+      messages = [{:warning, "Empty thead list does not make much sense", 1}, {:error, "Empty Body Data cannot create a table body", 2}]
+
+      assert result == {:error, html, messages} 
+    end
+    test "if columns do not correspond" do
+      data     = [~w(alpha beta), ~w{only_one}] 
+      html     = gen_table(data) |> IO.inspect
+      result   = gen(data)
+      messages = [{:warning, "Column count does not correspond to previous cells", 2}]
+      assert result == {:ok, html, messages} 
     end
   end
   
