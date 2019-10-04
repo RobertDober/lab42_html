@@ -3,7 +3,7 @@ defmodule Lab42Html.MixProject do
 
   @description "An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html"
   @url "https://github.com/robertdober/lab42_html"
-  @version "0.1.0"
+  @version "0.1.1"
   def project do
     [
       aliases: [docs: &build_docs/1],
