@@ -2,9 +2,11 @@ defmodule Lab42Html.MixProject do
   use Mix.Project
 
   @description "An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html"
+  @url "https://github.com/robertdober/lab42_html"
   @version "0.1.0"
   def project do
     [
+      aliases: [docs: &build_docs/1],
       app: :lab42_html,
       deps: deps(),
       description: @description,
@@ -62,4 +64,25 @@ defmodule Lab42Html.MixProject do
       }
     ]
   end
+
+  @prerequisites """
+  run `mix escript.install hex ex_doc` and adjust `PATH` accordingly
+  """
+  defp build_docs(_) do
+    Mix.Task.run("compile")
+    ex_doc = Path.join(Mix.Local.path_for(:escript), "ex_doc")
+    Mix.shell.info("Using escript: #{ex_doc} to build the docs")
+
+    unless File.exists?(ex_doc) do
+      raise "cannot build docs because escript for ex_doc is not installed, make sure to \n#{@prerequisites}"
+    end
+
+    args = ["Earmark", @version, Mix.Project.compile_path()]
+    opts = ~w[--main Earmark --source-ref v#{@version} --source-url #{@url}]
+
+    Mix.shell.info("Running: #{ex_doc} #{inspect(args ++ opts)}")
+    System.cmd(ex_doc, args ++ opts)
+    Mix.shell.info("Docs built successfully")
+  end
+
 end
