@@ -10,9 +10,15 @@ defmodule Lab42.Html.Table do
   @dpc false
   def gen(data, thead \\ true)
   def gen(data, true) do
-    {thead, rest, cols, messages} = _gen_thead(numbered(data), [])
-    {tbody, {_, messages1}}       = _gen_tbody(rest, cols, 2, messages)
+    case _gen_thead(numbered(data), []) do
+      {_, _, 0, messages}           -> result("", messages)
+      {thead, rest, cols, messages} -> _gen_table(thead, rest, cols, 2, messages)
+     end
+  end
 
+
+  defp _gen_table(thead, rest, cols, start, messages) do
+    {tbody, {_, messages1}} = _gen_tbody(rest, cols, start, messages)
     result(
       ["<table>\n<thead>\n<tr>\n", thead, "</tr>\n</thead>\n<tbody>\n", tbody, "</tbody>\n</table>\n"]
       |> IO.iodata_to_binary,
@@ -33,8 +39,8 @@ defmodule Lab42.Html.Table do
   end
 
   defp _gen_tbody(data, cols, start, messages)
-  defp _gen_tbody([], _cols, start, messages) do
-    {"", add_message(messages, "Empty Body Data cannot create a table body", location: start)}
+  defp _gen_tbody([], cols, start, messages) do
+    {"", {cols, add_message(messages, "Empty Body Data cannot create a table body", location: start)}}
   end
   defp _gen_tbody(data, cols, start, messages) do
     Enum.map_reduce(data, {cols, messages}, &_gen_row/2)

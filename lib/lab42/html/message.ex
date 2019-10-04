@@ -13,11 +13,18 @@ defmodule Lab42.Html.Message do
   @error_severities ~w(critical error fatal)a
   def result(data, messages) do
     status =
-      if Enum.any?(messages, &Enum.member?(@error_severities, &1.severity == :error)), do: :error, else: :ok
-    { status, data, messages }
+      if Enum.any?(messages, &Enum.member?(@error_severities, &1.severity)), do: :error, else: :ok
+    { status, data, _format(messages) }
   end
 
   def extract!(result)
   def extract!({:ok, result, _}), do: result
+
+
+  defp _format(messages) do
+    messages
+    |> Enum.reverse
+    |> Enum.map(&{&1.severity, &1.message, &1.location})
+  end
 
 end

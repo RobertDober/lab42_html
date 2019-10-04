@@ -9,7 +9,7 @@ defmodule Lab42Html.MixProject do
       deps: deps(),
       description: @description,
       elixir: "~> 1.9",
-      elixir_cpath: elixir_cpath(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env),
       package: package(),
       preferred_cli_env: [
         coveralls: :test,
@@ -40,9 +40,9 @@ defmodule Lab42Html.MixProject do
     ]
   end
 
-  defp elixir_cpath(env)
-  defp elixir_cpath(:test), do: ["lib", "test/support"]
-  defp elixir_cpath(_), do: ["lib"]
+  defp elixirc_paths(env)
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp package do
     [
