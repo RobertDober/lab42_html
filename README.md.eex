@@ -9,12 +9,15 @@
 [![Hex.pm](https://img.shields.io/hexpm/dt/lab42_html.svg)](https://hex.pm/packages/lab42_html)
 
 
-## Synopsis:
+## Synopsis
 
 An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html
 
+## Author
 
-## License:
+Copyright © 2019 Robert Dober, mailto:robert.dober@gmail.com
+
+## License
 
 [Apache-2.0](LICENSE)
-# SPDX-License-Identifier: Apache-2.0
+<!-- SPDX-License-Identifier: Apache-2.0 -->
