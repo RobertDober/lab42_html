@@ -49,7 +49,7 @@ defmodule Lab42Html.MixProject do
   defp package do
     [
       files: [
-        "lab42",
+        "lib",
         "mix.exs",
         "README.md"
       ],
@@ -77,8 +77,8 @@ defmodule Lab42Html.MixProject do
       raise "cannot build docs because escript for ex_doc is not installed, make sure to \n#{@prerequisites}"
     end
 
-    args = ["Earmark", @version, Mix.Project.compile_path()]
-    opts = ~w[--main Earmark --source-ref v#{@version} --source-url #{@url}]
+    args = ["Lab42.Html", @version, Mix.Project.compile_path()]
+    opts = ~w[--main Lab42.Html --source-ref v#{@version} --source-url #{@url}]
 
     Mix.shell.info("Running: #{ex_doc} #{inspect(args ++ opts)}")
     System.cmd(ex_doc, args ++ opts)
