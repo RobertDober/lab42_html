@@ -4,8 +4,15 @@ defmodule Support.GenHtml do
     ""
   end
 
-  def gen_table([header|data]) do
+  def gen_table(data, header \\ true)
+  def gen_table([header|data], true) do
     [ "<table>\n",  _push(~w[thead tr], "th", header),
+      _push("tbody", _w(~w[tr td], data)),
+      "</table>\n" ]
+    |> IO.iodata_to_binary
+  end
+  def gen_table(data, false) do
+    [ "<table>\n" ,
       _push("tbody", _w(~w[tr td], data)),
       "</table>\n" ]
     |> IO.iodata_to_binary

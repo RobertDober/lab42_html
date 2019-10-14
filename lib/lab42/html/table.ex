@@ -15,6 +15,11 @@ defmodule Lab42.Html.Table do
       {thead, rest, cols, messages} -> _gen_table(thead, rest, cols, 2, messages)
      end
   end
+  def gen(data, false) do
+    {tbody, {_, messages}} = _gen_tbody(numbered(data), nil, 1, [])
+    result(messages,
+      ["<table>\n<tbody>\n", tbody, "</tbody>\n</table>\n"] |> IO.iodata_to_binary)
+  end
 
 
   defp _gen_table(thead, rest, cols, start, messages) do
@@ -27,7 +32,7 @@ defmodule Lab42.Html.Table do
   defp _gen_row(lnb_n_cell, col_n_messages)
   defp _gen_row({lnb, cells}, {cols, messages}) when is_list(cells) do
     messages1 =
-      if Enum.count(cells) != cols,
+      if cols && Enum.count(cells) != cols,
         do: add_warning(messages, "Column count does not correspond to previous cells", lnb),
         else: messages
     result = Enum.map(cells, &_gen_td/1)

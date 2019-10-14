@@ -1,7 +1,7 @@
 defmodule Lab42.Html.TableTest do
   use ExUnit.Case
 
-  import Lab42.Html.Table, only: [gen: 1]
+  import Lab42.Html.Table, only: [gen: 1, gen: 2]
   import Support.GenHtml 
 
   describe "vanilla table" do
@@ -54,5 +54,16 @@ defmodule Lab42.Html.TableTest do
       assert result == {:ok, html, messages} 
     end
   end
-  
+
+  describe "thead is false" do
+    test "a little bit more complicated" do
+      data = [~w{n1 n2}, ~w{b1, b2}, ~w{b3 b4}]
+      html = gen_table(data, false)
+      result = gen(data, false)
+
+      assert result == {:ok, html, []}
+    end
+  end
+
+
 end
