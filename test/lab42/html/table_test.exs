@@ -40,15 +40,15 @@ defmodule Lab42.Html.TableTest do
     end
     test "or is empty" do
       data     = [[]]
-      html     = "<table>\n<thead>\n<tr>\n</tr>\n</thead>\n<tbody>\n</tbody>\n</table>\n"
+      html     = ""
       result   = gen(data)
-      messages = [{:warning, "Empty thead list does not make much sense", 1}, {:error, "Empty Body Data cannot create a table body", 2}]
+      messages = [{:error, "Empty thead list does not make much sense", 1}]
 
       assert result == {:error, html, messages} 
     end
     test "if columns do not correspond" do
       data     = [~w(alpha beta), ~w{only_one}] 
-      html     = gen_table(data) |> IO.inspect
+      html     = gen_table(data)
       result   = gen(data)
       messages = [{:warning, "Column count does not correspond to previous cells", 2}]
       assert result == {:ok, html, messages} 

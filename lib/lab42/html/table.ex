@@ -1,6 +1,6 @@
 defmodule Lab42.Html.Table do
 
-  import Lab42.Html.Message
+  import Lab42.Message
   import Lab42.Html.Tool, only: [numbered: 1]
 
   @moduledoc """
@@ -11,7 +11,7 @@ defmodule Lab42.Html.Table do
   def gen(data, thead \\ true)
   def gen(data, true) do
     case _gen_thead(numbered(data), []) do
-      {_, _, 0, messages}           -> result("", messages)
+      {_, _, 0, messages}           -> result(messages(messages), "")
       {thead, rest, cols, messages} -> _gen_table(thead, rest, cols, 2, messages)
      end
   end
@@ -19,30 +19,29 @@ defmodule Lab42.Html.Table do
 
   defp _gen_table(thead, rest, cols, start, messages) do
     {tbody, {_, messages1}} = _gen_tbody(rest, cols, start, messages)
-    result(
+    result(messages1,
       ["<table>\n<thead>\n<tr>\n", thead, "</tr>\n</thead>\n<tbody>\n", tbody, "</tbody>\n</table>\n"]
-      |> IO.iodata_to_binary,
-      messages1)
+      |> IO.iodata_to_binary)
   end
 
   defp _gen_row(lnb_n_cell, col_n_messages)
   defp _gen_row({lnb, cells}, {cols, messages}) when is_list(cells) do
     messages1 =
       if Enum.count(cells) != cols,
-        do: add_message(messages, "Column count does not correspond to previous cells", location: lnb, severity: :warning),
+        do: add_warning(messages, "Column count does not correspond to previous cells", lnb),
         else: messages
     result = Enum.map(cells, &_gen_td/1)
     {["<tr>\n", result, "</tr>\n"], {cols, messages1}}
   end
   defp _gen_row({lnb, _cells}, {cols, messages}) do 
-    {"", {cols, add_message(messages, "Data row is not a list, ignored!")}} 
+    {"", {cols, add_error(messages, "Data row is not a list, ignored!", lnb)}} 
   end
 
   defp _gen_tbody(data, cols, start, messages)
   defp _gen_tbody([], cols, start, messages) do
-    {"", {cols, add_message(messages, "Empty Body Data cannot create a table body", location: start)}}
+    {"", {cols, add_error(messages, "Empty Body Data cannot create a table body", start)}}
   end
-  defp _gen_tbody(data, cols, start, messages) do
+  defp _gen_tbody(data, cols, _start, messages) do
     Enum.map_reduce(data, {cols, messages}, &_gen_row/2)
   end
 
@@ -50,18 +49,18 @@ defmodule Lab42.Html.Table do
 
   defp _gen_thead(data, messages)
   defp _gen_thead([], messages) do
-    {"", [], 0, add_message(messages, "Empty Data cannot create a table")}
+    {"", [], 0, add_error(messages, "Empty Data cannot create a table", 0)}
   end
   defp _gen_thead([{lnb, thead}|rest], messages) when is_list(thead) do
     case _gen_thead_ok(thead, [], 0) do
-      {repr, 0}    ->
-        {"", rest, nil,
-          add_message(messages, "Empty thead list does not make much sense", location: lnb, severity: :warning)}
+      {_repr, 0}    ->
+        {"", rest, 0,
+          add_error(messages, "Empty thead list does not make much sense", lnb)}
       {repr, cols} -> {repr, rest, cols, messages}
     end
   end
-  defp _gen_thead(data, messages) do
-    {"", [], 0, add_message(messages, "Data is not a list of lists", severity: :fatal)}
+  defp _gen_thead(_data, messages) do
+    {"", [], 0, add_fatal(messages, "Data is not a list of lists", 0)}
   end
 
   defp _gen_thead_ok(cells, result, cols)

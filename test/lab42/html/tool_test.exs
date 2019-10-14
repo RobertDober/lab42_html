@@ -1,6 +1,8 @@
 defmodule Lab42.Html.ToolTest do
   use ExUnit.Case
 
+  doctest Lab42.Html.Tool, import: true
+
   import Lab42.Html.Tool, only: [numbered: 1, numbered: 2]
 
   describe "numbered" do

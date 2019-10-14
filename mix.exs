@@ -3,7 +3,7 @@ defmodule Lab42Html.MixProject do
 
   @description "An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html"
   @url "https://github.com/robertdober/lab42_html"
-  @version "0.1.1"
+  @version "0.1.2"
   def project do
     [
       aliases: [docs: &build_docs/1],
@@ -35,6 +35,8 @@ defmodule Lab42Html.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:lab42_message, "~> 0.1.2"},
+      {:dialyxir,    "~> 0.5.1", only: [:dev], optional: true, runtime: false},
       {:excoveralls, "~> 0.11.2", only: [:test]},
       {:extractly,   "~> 0.1.3", only: [:dev]}
       # {:dep_from_hexpm, "~> 0.3.0"},
