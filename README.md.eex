@@ -13,6 +13,8 @@
 
 An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html
 
+<%= xtra.functiondoc(["gen_table/2"], module: "Lab42.Html", headline: 3) %>
+
 ## Author
 
 Copyright © 2019 Robert Dober, mailto:robert.dober@gmail.com
