@@ -17,7 +17,9 @@ defmodule Lab42.Html do
         ...(1)>  ~w(no_header no_header),
         ...(1)>  ~w(cell21 cell22)]
         ...(1)> gen_table(data, false)
-        {:ok, "", []}
+        {:ok,
+        "<table>\n<tbody>\n<tr>\n<td>\nno_header\n</td>\n<td>\nno_header\n</td>\n</tr>\n<tr>\n<td>\ncell21\n</td>\n<td>\ncell22\n</td>\n</tr>\n</tbody>\n</table>\n",
+        []}
 
   """
   def gen_table(data, thead \\ true), do: Lab42.Html.Table.gen(data, thead)

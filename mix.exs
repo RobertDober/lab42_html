@@ -38,7 +38,7 @@ defmodule Lab42Html.MixProject do
       {:lab42_message, "~> 0.1.2"},
       {:dialyxir,    "~> 0.5.1", only: [:dev], optional: true, runtime: false},
       {:excoveralls, "~> 0.11.2", only: [:test]},
-      {:extractly,   "~> 0.1.4", only: [:dev]}
+      {:extractly,   "~> 0.1.5", only: [:dev]}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]

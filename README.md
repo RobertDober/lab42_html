@@ -17,6 +17,45 @@ and any changes you make in this file will most likely be lost
 
 An isolated HTML generator. Inspired in its simplicity by Dave Thomas' keynote, condensed here https://pragdave.me/blog/2018/06/02/project-structure.html
 
+### Lab42.Html.gen_table/2
+
+
+      iex(0)> data = [
+      ...(0)>   ["header1", "header2"],
+      ...(0)>   ["cell1", "cell2"]]
+      ...(0)> gen_table(data)
+      {:ok, "<table>\n<thead>\n<tr>\n<th>\nheader1\n</th>\n<th>\nheader2\n</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>\ncell1\n</td>\n<td>\ncell2\n</td>\n</tr>\n</tbody>\n</table>\n", []}
+
+Headers can, but probably shall not, be avoided, also we expose `Lab42.Html.Table.gen/2` as `gen_table/2`
+
+      iex(1)> data = [
+      ...(1)>  ~w(no_header no_header),
+      ...(1)>  ~w(cell21 cell22)]
+      ...(1)> gen_table(data, false)
+      {:ok,
+      "<table>
+<tbody>
+<tr>
+<td>
+no_header
+</td>
+<td>
+no_header
+</td>
+</tr>
+<tr>
+<td>
+cell21
+</td>
+<td>
+cell22
+</td>
+</tr>
+</tbody>
+</table>
+",
+      []}
+
 
 
 ## Author
