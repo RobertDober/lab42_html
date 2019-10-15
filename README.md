@@ -33,27 +33,7 @@ Headers can, but probably shall not, be avoided, also we expose `Lab42.Html.Tabl
       ...(1)>  ~w(cell21 cell22)]
       ...(1)> gen_table(data, false)
       {:ok,
-      "<table>
-<tbody>
-<tr>
-<td>
-no_header
-</td>
-<td>
-no_header
-</td>
-</tr>
-<tr>
-<td>
-cell21
-</td>
-<td>
-cell22
-</td>
-</tr>
-</tbody>
-</table>
-",
+      "<table>\n<tbody>\n<tr>\n<td>\nno_header\n</td>\n<td>\nno_header\n</td>\n</tr>\n<tr>\n<td>\ncell21\n</td>\n<td>\ncell22\n</td>\n</tr>\n</tbody>\n</table>\n",
       []}
 
 

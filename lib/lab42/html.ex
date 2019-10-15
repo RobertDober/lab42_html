@@ -18,7 +18,7 @@ defmodule Lab42.Html do
         ...(1)>  ~w(cell21 cell22)]
         ...(1)> gen_table(data, false)
         {:ok,
-        "<table>\n<tbody>\n<tr>\n<td>\nno_header\n</td>\n<td>\nno_header\n</td>\n</tr>\n<tr>\n<td>\ncell21\n</td>\n<td>\ncell22\n</td>\n</tr>\n</tbody>\n</table>\n",
+        "<table>\\n<tbody>\\n<tr>\\n<td>\\nno_header\\n</td>\\n<td>\\nno_header\\n</td>\\n</tr>\\n<tr>\\n<td>\\ncell21\\n</td>\\n<td>\\ncell22\\n</td>\\n</tr>\\n</tbody>\\n</table>\\n",
         []}
 
   """
