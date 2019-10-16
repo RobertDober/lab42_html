@@ -63,6 +63,13 @@ defmodule Lab42.Html.TableTest do
 
       assert result == {:ok, html, []}
     end
+    test "if columns do not correspond" do
+      data     = [~w(alpha beta), ~w{only_one}] 
+      html     = gen_table(data, false)
+      result   = gen(data, false)
+      messages = [{:warning, "Column count does not correspond to previous cells", 2}]
+      assert result == {:ok, html, messages} 
+    end
   end
 
 

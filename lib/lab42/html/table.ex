@@ -36,7 +36,7 @@ defmodule Lab42.Html.Table do
         do: add_warning(messages, "Column count does not correspond to previous cells", lnb),
         else: messages
     result = Enum.map(cells, &_gen_td/1)
-    {["<tr>\n", result, "</tr>\n"], {cols, messages1}}
+    {["<tr>\n", result, "</tr>\n"], {cols || Enum.count(cells), messages1}}
   end
   defp _gen_row({lnb, _cells}, {cols, messages}) do 
     {"", {cols, add_error(messages, "Data row is not a list, ignored!", lnb)}} 
