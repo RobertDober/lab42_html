@@ -1,7 +1,7 @@
 defmodule Lab42.Html.Table do
 
-  import Lab42.Message
-  import Lab42.Html.Tool, only: [numbered: 1]
+  import Lab42.Message, only: [messages: 1, add_error: 3, add_fatal: 3]
+  import Lab42.Html.Tool, only: [numbered: 1, result: 2]
 
   @moduledoc """
   Generates HTML Tables from list data.
@@ -33,7 +33,7 @@ defmodule Lab42.Html.Table do
   defp _gen_row({lnb, cells}, {cols, messages}) when is_list(cells) do
     messages1 =
       if cols && Enum.count(cells) != cols,
-        do: add_warning(messages, "Column count does not correspond to previous cells", lnb),
+        do: add_error(messages, "Column count does not correspond to previous cells", lnb),
         else: messages
     result = Enum.map(cells, &_gen_td/1)
     {["<tr>\n", result, "</tr>\n"], {cols || Enum.count(cells), messages1}}
