@@ -10,14 +10,14 @@ defmodule Lab42.Html.TableTest do
       html = gen_table(data)
       result = gen(data)
 
-      assert result == {:ok, html, []}
+      assert result == {:safe, html}
     end
     test "a little bit more complicated" do
       data = [~w{h1 h2}, ~w{b1, b2}, ~w{b3 b4}]
       html = gen_table(data)
       result = gen(data)
 
-      assert result == {:ok, html, []}
+      assert result == {:safe, html}
     end
   end
 
@@ -50,8 +50,8 @@ defmodule Lab42.Html.TableTest do
       data     = [~w(alpha beta), ~w{only_one}] 
       html     = gen_table(data)
       result   = gen(data)
-      messages = [{:warning, "Column count does not correspond to previous cells", 2}]
-      assert result == {:ok, html, messages} 
+      messages = [{:error, "Column count does not correspond to previous cells", 2}]
+      assert result == {:error, html, messages} 
     end
   end
 
@@ -61,16 +61,15 @@ defmodule Lab42.Html.TableTest do
       html = gen_table(data, false)
       result = gen(data, false)
 
-      assert result == {:ok, html, []}
+      assert result == {:safe, html}
     end
     test "if columns do not correspond" do
       data     = [~w(alpha beta), ~w{only_one}] 
       html     = gen_table(data, false)
       result   = gen(data, false)
-      messages = [{:warning, "Column count does not correspond to previous cells", 2}]
-      assert result == {:ok, html, messages} 
+      messages = [{:error, "Column count does not correspond to previous cells", 2}]
+      assert result == {:error, html, messages} 
     end
   end
-
 
 end
